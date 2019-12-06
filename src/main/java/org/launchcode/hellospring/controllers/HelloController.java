@@ -16,10 +16,10 @@ public class HelloController {
     }
 
     // Handles Requests at path (localhost:8080/hello)
-    @GetMapping()
-    public String helloq() {
-        return "Hello, Spring No Path";
-    }
+//    @GetMapping()
+//    public String helloq() {
+//        return "Hello, Spring No Path";
+//    }
 
     // Handles Requests at path  /goodbye (localhost:8080/hello/goodbye)
     // now lives at (localhost:8080/hello/goodbye)
@@ -50,18 +50,57 @@ public class HelloController {
         return "Hello, " + name;
     }
 
-
     // Handles Form Request
     @GetMapping("form")
     public String helloForm() {
         return "<html>" +
                 "<body>" +
-                "<form action= 'hello' method= 'post'>" +
+                "<form action= 'create' method= 'post'>" +
                 "<input type= 'text' name= 'name'>" +
+                "<select name=\"language\">\n" +
+                "    <option value=\"\">--Please choose an option--</option>\n" +
+                "    <option value=\"en\">English</option>\n" +
+                "    <option value=\"sp\">Spanish</option>\n" +
+                "    <option value=\"fr\">French</option>\n" +
+                "    <option value=\"it\">Italian</option>\n" +
+                "    <option value=\"gr\">German</option>\n" +
+                "</select>\n" +
                 "<input type= 'submit' value= 'Enter name!'>" +
                 "</form>" +
                 "</body>" +
                 "</html>";
+    }
+
+    /*
+    <form action="https://handlers.education.launchcode.org/request-parrot" method="POST">
+   <label>Username <input type="text" name="username"></label>
+   <label>Team Name <input type="text" name="team"></label>
+   <button>Submit</button>
+</form>
+
+     */
+
+//    @GetMapping("form")
+//    public String helloForm() {
+//        return createMessage("fr", "Zaphod");
+//    }
+//
+    //@GetMapping("create")
+    @RequestMapping(method = RequestMethod.POST, value = "create")
+    public static String createMessage(String language, String name) {
+        if (language.equals("en")) {
+            return "(" + language + ") " + "Hello " + name;
+        } else if (language.equals("sp")) {
+            return "(" + language + ") " + "Hola " + name;
+        } else if (language.equals("fr")) {
+            return "(" + language + ") " + "Bonjour " + name;
+        } else if (language.equals("it")) {
+            return "(" + language + ") " + "Ciao " + name;
+        } else if (language.equals("gr")) {
+            return "(" + language + ") " + "Hallo " + name;
+        } else {
+            return "(null) No Language Selected " + name;
+        }
     }
 
 }
